@@ -8,6 +8,7 @@ from datetime import datetime, date
 from zhdate import ZhDate
 import sys
 import os
+import json
 
 
 def get_color():
