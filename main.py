@@ -226,14 +226,18 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
 
 if __name__ == "__main__":
     try:
-        with open("config.txt", encoding="utf-8") as f:
-            config = eval(f.read())
+        # 1. 打开config.json文件（替换config.txt为config.json）
+        with open("config.json", encoding="utf-8") as f:
+            # 2. 用json.load()解析JSON文件，替换原有的eval(f.read())
+            config = json.load(f)
     except FileNotFoundError:
-        print("推送消息失败，请检查config.txt文件是否与程序位于同一路径")
+        # 错误提示同步更新为config.json
+        print("推送消息失败，请检查config.json文件是否与程序位于同一路径")
         os.system("pause")
         sys.exit(1)
-    except SyntaxError:
-        print("推送消息失败，请检查配置文件格式是否正确")
+    except json.JSONDecodeError:
+        # 新增：捕获JSON格式解析错误（替换原SyntaxError，更精准）
+        print("推送消息失败，请检查config.json格式是否符合JSON语法规范")
         os.system("pause")
         sys.exit(1)
 
